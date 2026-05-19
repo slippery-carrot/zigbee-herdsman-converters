@@ -6599,6 +6599,33 @@ export const definitions: DefinitionWithExtend[] = [
             await reporting.bind(device.getEndpoint(1), coordinatorEndpoint, ["genOnOff"]);
         },
     },
+    {
+        fingerprint: tuya.fingerprint("TS0001", ["_TZ3000_5rpu3r0d"]),
+        model: "TS0001_1_gang_switch_no_neutral",
+        vendor: "Tuya",
+        description: "1 gang, no neutral, switch with LED backlight",
+        extend: [
+            tuya.modernExtend.tuyaBase(),
+            tuya.modernExtend.tuyaOnOff({
+                switchType: true,
+                powerOnBehavior2: true,
+                onOffCountdown: true,
+                indicatorMode: true,
+            }),
+        ],
+
+        /* -- White label tbd --
+        whiteLabel: [
+            tuya.whitelabel("ASTHOME", "TZ3000_5rpu3r0d", "1 gang, no neutral, switch module", ["_TZ3000_5rpu3r0d"]),
+            tuya.whitelabel("Rely Electronics", "TZ3000_5rpu3r0d", "1 gang, no neutral, switch module", ["_TZ3000_5rpu3r0d"]),
+        ],
+        */
+        
+        configure: async (device, coordinatorEndpoint) => {
+            await tuya.configureMagicPacket(device, coordinatorEndpoint);
+            await reporting.bind(device.getEndpoint(1), coordinatorEndpoint, ["genOnOff"]);
+        },
+    },
 
     ////////////////////////
     // TS0002 DEFINITIONS //
